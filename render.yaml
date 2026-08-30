@@ -2,31 +2,37 @@ services:
   - type: web
     name: panaderia-app
     runtime: docker
+    plan: free
     dockerfilePath: ./Dockerfile
+
     envVars:
       - key: DB_HOST
         fromDatabase:
           name: panaderia-db
           property: host
+
       - key: DB_PORT
         fromDatabase:
           name: panaderia-db
           property: port
+
       - key: DB_NAME
         fromDatabase:
           name: panaderia-db
           property: database
+
       - key: DB_USER
         fromDatabase:
           name: panaderia-db
           property: user
+
       - key: DB_PASS
         fromDatabase:
           name: panaderia-db
           property: password
 
-  - type: pgsql
-    name: panaderia-db
+databases:
+  - name: panaderia-db
     plan: free
-    database: panaderia
+    databaseName: panaderia
     user: postgres
