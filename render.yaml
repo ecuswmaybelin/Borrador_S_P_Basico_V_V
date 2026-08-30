@@ -35,4 +35,3 @@ databases:
   - name: panaderia-db
     plan: free
     databaseName: panaderia
-    user: postgres
