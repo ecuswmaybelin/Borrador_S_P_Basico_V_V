@@ -1,0 +1,10 @@
+# Visual Studio
+.vs/
+
+# Archivos del sistema
+thumbs.db
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
