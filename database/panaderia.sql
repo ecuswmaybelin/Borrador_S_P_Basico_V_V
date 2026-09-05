@@ -48,6 +48,8 @@ CREATE TABLE IF NOT EXISTS productos (
         ON DELETE SET NULL ON UPDATE CASCADE
 );
 
+CREATE UNIQUE INDEX IF NOT EXISTS idx_productos_nombre_unico ON productos (LOWER(TRIM(nombre)));
+
 -- =====================================================
 -- TABLA: movimientos_inventario
 -- =====================================================

@@ -35,6 +35,14 @@ if (empty($nombre)) {
     exit;
 }
 
+$nombreNormalizado = strtolower(trim($nombre));
+$stmtCheck = $conexion->prepare("SELECT id FROM productos WHERE LOWER(TRIM(nombre)) = :nombre");
+$stmtCheck->execute([':nombre' => $nombreNormalizado]);
+if ($stmtCheck->fetch()) {
+    echo json_encode(["success" => false, "message" => "Ya existe un producto con el nombre '" . htmlspecialchars($nombre) . "'"]);
+    exit;
+}
+
 if (!is_numeric($precioRaw) || floatval($precioRaw) < 0) {
     echo json_encode(["success" => false, "message" => "El precio debe ser un número válido mayor o igual a 0"]);
     exit;
