@@ -24,8 +24,8 @@ require_once __DIR__ . '/../config/conexion.php';
 
 $nombre = trim($_POST['nombre'] ?? '');
 $descripcion = trim($_POST['descripcion'] ?? '');
-$precio = floatval($_POST['precio'] ?? 0);
-$stock = intval($_POST['stock'] ?? 0);
+$precioRaw = $_POST['precio'] ?? '';
+$stockRaw = $_POST['stock'] ?? '';
 $stock_minimo = intval($_POST['stock_minimo'] ?? 5);
 $categoria_id = !empty($_POST['categoria_id']) ? intval($_POST['categoria_id']) : null;
 
@@ -35,15 +35,19 @@ if (empty($nombre)) {
     exit;
 }
 
-if ($precio < 0) {
-    echo json_encode(["success" => false, "message" => "El precio no puede ser negativo"]);
+if (!is_numeric($precioRaw) || floatval($precioRaw) < 0) {
+    echo json_encode(["success" => false, "message" => "El precio debe ser un número válido mayor o igual a 0"]);
     exit;
 }
 
-if ($stock < 0) {
-    echo json_encode(["success" => false, "message" => "El stock no puede ser negativo"]);
+$precio = floatval($precioRaw);
+
+if (!ctype_digit($stockRaw) || intval($stockRaw) < 0) {
+    echo json_encode(["success" => false, "message" => "El stock debe ser un número entero válido mayor o igual a 0"]);
     exit;
 }
+
+$stock = intval($stockRaw);
 
 try {
     $stmt = $conexion->prepare("

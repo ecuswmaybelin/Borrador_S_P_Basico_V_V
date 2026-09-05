@@ -74,7 +74,7 @@ function renderizarProductos(productos) {
         if (descLimpio) html += '<br><small style="color: var(--color-texto-claro);">' + descLimpio + '</small>';
         html += '</td>';
         html += '<td>' + catLimpio + '</td>';
-        html += '<td><strong>S/. ' + parseFloat(p.precio).toFixed(2) + '</strong></td>';
+        html += '<td><strong>$ ' + parseFloat(p.precio).toFixed(2) + '</strong></td>';
         html += '<td>';
         html += '<span class="' + (esBajo ? 'text-danger' : '') + '" style="font-weight: 600;">' + p.stock + '</span>';
         if (esBajo) html += '<br><small class="text-danger">Stock bajo</small>';
@@ -82,7 +82,7 @@ function renderizarProductos(productos) {
         html += '<td><span class="badge badge-success">Activo</span></td>';
         html += '<td>';
         html += '<button class="btn btn-warning btn-sm" onclick="editarProducto(' + p.id + ')" title="Editar">&#9998;</button> ';
-        html += '<button class="btn btn-danger btn-sm" onclick="eliminarProducto(' + p.id + ', \'' + nombreLimpio.replace(/'/g, "\\'") + '\')" title="Eliminar">&#128465;</button>';
+        html += '<button class="btn btn-danger btn-sm" onclick="deshabilitarProducto(' + p.id + ', \'' + nombreLimpio.replace(/'/g, "\\'") + '\')" title="Deshabilitar">&#128465;</button>';
         html += '</td>';
         html += '</tr>';
     });
@@ -143,21 +143,25 @@ async function guardarProducto() {
     var id = document.getElementById('productoId').value;
     var nombre = document.getElementById('productoNombre').value.trim();
     var descripcion = document.getElementById('productoDescripcion').value.trim();
-    var precio = document.getElementById('productoPrecio').value;
-    var stock = document.getElementById('productoStock').value;
-    var stock_minimo = document.getElementById('productoStockMinimo').value;
+    var precio = document.getElementById('productoPrecio').value.trim();
+    var stock = document.getElementById('productoStock').value.trim();
+    var stock_minimo = document.getElementById('productoStockMinimo').value.trim();
     var categoria_id = document.getElementById('productoCategoria').value;
 
     if (!nombre) {
         showToast('El nombre es obligatorio', 'error');
         return;
     }
-    if (!precio || parseFloat(precio) < 0) {
-        showToast('Ingrese un precio valido', 'error');
+    if (!precio || isNaN(precio) || parseFloat(precio) < 0) {
+        showToast('Ingrese un precio válido', 'error');
         return;
     }
-    if (stock === '' || parseInt(stock) < 0) {
-        showToast('Ingrese un stock valido', 'error');
+    if (stock === '' || isNaN(stock) || parseInt(stock) < 0 || stock.indexOf('.') !== -1) {
+        showToast('Ingrese un stock válido (solo números enteros)', 'error');
+        return;
+    }
+    if (stock_minimo !== '' && (isNaN(stock_minimo) || parseInt(stock_minimo) < 0 || stock_minimo.indexOf('.') !== -1)) {
+        showToast('El stock mínimo debe ser un número entero válido', 'error');
         return;
     }
 
@@ -166,7 +170,7 @@ async function guardarProducto() {
     formData.append('descripcion', descripcion);
     formData.append('precio', precio);
     formData.append('stock', stock);
-    formData.append('stock_minimo', stock_minimo);
+    formData.append('stock_minimo', stock_minimo || '5');
     formData.append('categoria_id', categoria_id);
 
     var url;
@@ -188,25 +192,25 @@ async function guardarProducto() {
     }
 }
 
-function eliminarProducto(id, nombre) {
-    document.getElementById('idProductoEliminar').value = id;
-    document.getElementById('nombreProductoEliminar').textContent = nombre;
-    abrirModal('modalEliminar');
+function deshabilitarProducto(id, nombre) {
+    document.getElementById('idProductoDeshabilitar').value = id;
+    document.getElementById('nombreProductoDeshabilitar').textContent = nombre;
+    abrirModal('modalDeshabilitar');
 }
 
-async function confirmarEliminar() {
-    var id = document.getElementById('idProductoEliminar').value;
+async function confirmarDeshabilitar() {
+    var id = document.getElementById('idProductoDeshabilitar').value;
     var formData = new FormData();
     formData.append('id', id);
 
-    var data = await fetchData('../backend/productos/eliminar.php', {
+    var data = await fetchData('../backend/productos/deshabilitar.php', {
         method: 'POST',
         body: formData
     });
 
     if (data && data.success) {
         showToast(data.message, 'success');
-        cerrarModal('modalEliminar');
+        cerrarModal('modalDeshabilitar');
         cargarProductos();
     } else {
         showToast(data ? data.message : 'Error del servidor', 'error');
@@ -218,4 +222,26 @@ function escapeHtml(text) {
     var div = document.createElement('div');
     div.appendChild(document.createTextNode(text));
     return div.innerHTML;
+}
+
+function validarPrecioInput(input) {
+    var valor = input.value;
+    valor = valor.replace(/[^0-9.]/g, '');
+    var partes = valor.split('.');
+    if (partes.length > 2) {
+        valor = partes[0] + '.' + partes.slice(1).join('');
+    }
+    if (valor.indexOf('.') !== -1) {
+        var decimales = valor.split('.')[1];
+        if (decimales.length > 2) {
+            valor = valor.split('.')[0] + '.' + decimales.substring(0, 2);
+        }
+    }
+    input.value = valor;
+}
+
+function validarStockInput(input) {
+    var valor = input.value;
+    valor = valor.replace(/[^0-9]/g, '');
+    input.value = valor;
 }

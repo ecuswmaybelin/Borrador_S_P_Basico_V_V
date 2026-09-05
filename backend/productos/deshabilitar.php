@@ -1,6 +1,6 @@
 <?php
 /**
- * PRODUCTOS - Eliminar producto (soft delete)
+ * PRODUCTOS - Deshabilitar producto (soft delete)
  * 
  * Cambia el estado a 'inactivo' en lugar de borrar.
  */
@@ -35,7 +35,7 @@ try {
 
     echo json_encode([
         "success" => true,
-        "message" => "Producto eliminado exitosamente"
+        "message" => "Producto deshabilitado exitosamente"
     ]);
 
 } catch (PDOException $e) {

@@ -47,7 +47,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
             <div class="stat-card">
                 <div class="stat-icon">&#128176;</div>
                 <div class="stat-info">
-                    <h4 id="ingresosHoy">S/. 0.00</h4>
+                    <h4 id="ingresosHoy">$ 0.00</h4>
                     <p>Ingresos Hoy</p>
                 </div>
             </div>

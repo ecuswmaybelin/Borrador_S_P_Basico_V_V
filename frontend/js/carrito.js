@@ -100,7 +100,7 @@ function actualizarCarrito() {
                 <small>Busca y agrega productos</small>
             </div>
         `;
-        totalEl.textContent = 'S/. 0.00';
+        totalEl.textContent = '$ 0.00';
         btnCompletar.disabled = true;
         btnLimpiar.style.display = 'none';
         return;
@@ -113,21 +113,21 @@ function actualizarCarrito() {
         <div class="carrito-item">
             <div class="carrito-item-info">
                 <h4>${escapeHtml(item.nombre)}</h4>
-                <p>S/. ${item.precio.toFixed(2)} c/u</p>
+                <p>$ ${item.precio.toFixed(2)} c/u</p>
             </div>
             <div class="carrito-cantidad">
                 <button onclick="cambiarCantidad(${item.id}, -1)">-</button>
                 <span>${item.cantidad}</span>
                 <button onclick="cambiarCantidad(${item.id}, 1)">+</button>
             </div>
-            <div class="carrito-item-precio">S/. ${(item.precio * item.cantidad).toFixed(2)}</div>
+            <div class="carrito-item-precio">$ ${(item.precio * item.cantidad).toFixed(2)}</div>
             <button class="carrito-item-remove" onclick="quitarDelCarrito(${item.id})">&times;</button>
         </div>
     `).join('');
 
     // Calcular total
     const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-    totalEl.textContent = 'S/. ' + total.toFixed(2);
+    totalEl.textContent = '$ ' + total.toFixed(2);
 }
 
 function escapeHtml(text) {

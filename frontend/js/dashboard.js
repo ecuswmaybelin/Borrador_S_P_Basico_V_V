@@ -10,7 +10,7 @@ async function cargarDashboard() {
 
     // Actualizar tarjetas
     document.getElementById('ventasHoy').textContent = data.ventasHoy;
-    document.getElementById('ingresosHoy').textContent = 'S/. ' + data.ingresosHoy;
+    document.getElementById('ingresosHoy').textContent = '$ ' + data.ingresosHoy;
     document.getElementById('totalProductos').textContent = data.totalProductos;
     document.getElementById('stockBajo').textContent = data.stockBajo;
 
@@ -26,7 +26,7 @@ async function cargarDashboard() {
         <tr>
             <td>#${venta.id}</td>
             <td>${escapeHtml(venta.vendedor)}</td>
-            <td><strong>S/. ${parseFloat(venta.total).toFixed(2)}</strong></td>
+            <td><strong>$ ${parseFloat(venta.total).toFixed(2)}</strong></td>
             <td>${formatDate(venta.fecha_venta)}</td>
             <td><span class="badge badge-${venta.estado === 'completada' ? 'success' : 'danger'}">${venta.estado}</span></td>
         </tr>
@@ -41,7 +41,7 @@ function escapeHtml(text) {
 
 function formatDate(dateStr) {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('es-PE', {
+    return date.toLocaleDateString('es-EC', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric',

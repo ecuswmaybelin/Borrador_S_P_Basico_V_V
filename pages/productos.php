@@ -2,7 +2,7 @@
 /**
  * PRODUCTOS - Pagina de gestion de productos
  * 
- * CRUD completo: crear, editar, eliminar, buscar productos.
+ * CRUD completo: crear, editar, deshabilitar, buscar productos.
  * Solo admin puede gestionar.
  */
 
@@ -100,18 +100,18 @@ require_once __DIR__ . '/../includes/sidebar.php';
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="productoPrecio">Precio (S/.) *</label>
-                        <input type="number" id="productoPrecio" class="form-control" step="0.01" min="0" required>
+                        <label for="productoPrecio">Precio (USD $) *</label>
+                        <input type="text" id="productoPrecio" class="form-control" placeholder="0.00" oninput="validarPrecioInput(this)" required>
                     </div>
                     <div class="form-group">
                         <label for="productoStock">Stock *</label>
-                        <input type="number" id="productoStock" class="form-control" min="0" required>
+                        <input type="text" id="productoStock" class="form-control" placeholder="0" oninput="validarStockInput(this)" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="productoStockMinimo">Stock Minimo (alerta)</label>
-                    <input type="number" id="productoStockMinimo" class="form-control" min="0" value="5">
+                    <input type="text" id="productoStockMinimo" class="form-control" placeholder="5" oninput="validarStockInput(this)" value="5">
                 </div>
             </form>
         </div>
@@ -122,21 +122,21 @@ require_once __DIR__ . '/../includes/sidebar.php';
     </div>
 </div>
 
-<!-- Modal Confirmar Eliminar -->
-<div class="modal-overlay" id="modalEliminar">
+<!-- Modal Confirmar Deshabilitar -->
+<div class="modal-overlay" id="modalDeshabilitar">
     <div class="modal" style="max-width: 400px;">
         <div class="modal-header">
-            <h3>Confirmar Eliminacion</h3>
-            <button class="modal-close" onclick="cerrarModal('modalEliminar')">&times;</button>
+            <h3>Deshabilitar producto</h3>
+            <button class="modal-close" onclick="cerrarModal('modalDeshabilitar')">&times;</button>
         </div>
         <div class="modal-body text-center">
-            <p style="font-size: 1.1rem;">¿Estas seguro de eliminar este producto?</p>
-            <p id="nombreProductoEliminar" style="font-weight: 700; color: var(--color-primario); margin-top: 10px;"></p>
-            <input type="hidden" id="idProductoEliminar">
+            <p style="font-size: 1.1rem;">¿Está seguro de que desea deshabilitar este producto? El producto dejará de estar disponible en el catálogo, pero su información permanecerá registrada en el sistema.</p>
+            <p id="nombreProductoDeshabilitar" style="font-weight: 700; color: var(--color-primario); margin-top: 10px;"></p>
+            <input type="hidden" id="idProductoDeshabilitar">
         </div>
         <div class="modal-footer">
-            <button class="btn btn-outline" onclick="cerrarModal('modalEliminar')">Cancelar</button>
-            <button class="btn btn-danger" onclick="confirmarEliminar()">Eliminar</button>
+            <button class="btn btn-outline" onclick="cerrarModal('modalDeshabilitar')">Cancelar</button>
+            <button class="btn btn-danger" onclick="confirmarDeshabilitar()">Deshabilitar</button>
         </div>
     </div>
 </div>

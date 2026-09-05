@@ -30,7 +30,7 @@ function renderizarProductosVenta(productos) {
         <div class="producto-card" onclick="agregarAlCarrito(${p.id}, '${escapeHtml(p.nombre).replace(/'/g, "\\'")}', ${p.precio}, ${p.stock})">
             <div class="producto-img">&#127838;</div>
             <h4>${escapeHtml(p.nombre)}</h4>
-            <div class="producto-precio">S/. ${parseFloat(p.precio).toFixed(2)}</div>
+            <div class="producto-precio">$ ${parseFloat(p.precio).toFixed(2)}</div>
             <div class="producto-stock ${p.stock <= p.stock_minimo ? 'bajo' : ''}">
                 Stock: ${p.stock}
             </div>
@@ -66,7 +66,7 @@ async function completarVenta() {
 
     // Confirmar
     const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-    if (!confirm(`¿Completar venta por S/. ${total.toFixed(2)}?`)) return;
+    if (!confirm(`¿Completar venta por $ ${total.toFixed(2)}?`)) return;
 
     // Preparar datos
     const productos = carrito.map(item => ({
@@ -133,8 +133,8 @@ function mostrarComprobante(ventaId, comprobante) {
                 <tr style="border-bottom: 1px solid #f5f5f5;">
                     <td style="padding: 8px 0;">${escapeHtml(item.nombre)}</td>
                     <td style="text-align: center; padding: 8px 0;">${item.cantidad}</td>
-                    <td style="text-align: right; padding: 8px 0;">S/. ${parseFloat(item.precio_unitario).toFixed(2)}</td>
-                    <td style="text-align: right; padding: 8px 0;">S/. ${parseFloat(item.subtotal).toFixed(2)}</td>
+                    <td style="text-align: right; padding: 8px 0;">$ ${parseFloat(item.precio_unitario).toFixed(2)}</td>
+                    <td style="text-align: right; padding: 8px 0;">$ ${parseFloat(item.subtotal).toFixed(2)}</td>
                 </tr>
             `;
         });
@@ -145,7 +145,7 @@ function mostrarComprobante(ventaId, comprobante) {
             <tfoot>
                 <tr style="border-top: 2px solid var(--color-primario); font-weight: 700; font-size: 1.1rem;">
                     <td colspan="3" style="padding: 12px 0;">TOTAL:</td>
-                    <td style="text-align: right; padding: 12px 0; color: var(--color-primario-oscuro);">S/. ${parseFloat(comprobante?.total || 0).toFixed(2)}</td>
+                    <td style="text-align: right; padding: 12px 0; color: var(--color-primario-oscuro);">$ ${parseFloat(comprobante?.total || 0).toFixed(2)}</td>
                 </tr>
             </tfoot>
         </table>

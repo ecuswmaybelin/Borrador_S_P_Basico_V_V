@@ -32,7 +32,7 @@ document.addEventListener('click', function(e) {
 });
 
 function formatCurrency(amount) {
-    return 'S/. ' + parseFloat(amount).toFixed(2);
+    return '$ ' + parseFloat(amount).toFixed(2);
 }
 
 async function fetchData(url, options) {
