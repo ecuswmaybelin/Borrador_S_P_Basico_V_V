@@ -71,7 +71,7 @@ require_once __DIR__ . '/../includes/sidebar.php';
                 <div class="carrito-footer">
                     <div class="carrito-total">
                         <h3>Total:</h3>
-                        <span class="total-amount" id="carritoTotal">$ 0.00</span>
+                        <span class="total-amount" id="carritoTotal">$0.00</span>
                     </div>
                     <button class="btn btn-success" style="width: 100%; justify-content: center; padding: 12px;"
                             id="btnCompletar" onclick="completarVenta()" disabled>

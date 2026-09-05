@@ -101,17 +101,22 @@ require_once __DIR__ . '/../includes/sidebar.php';
                 <div class="form-row">
                     <div class="form-group">
                         <label for="productoPrecio">Precio (USD $) *</label>
-                        <input type="text" id="productoPrecio" class="form-control" placeholder="0.00" oninput="validarPrecioInput(this)" required>
+                        <input type="text" id="productoPrecio" class="form-control" placeholder="0.00"
+                               onkeydown="validarPrecioKeydown(event)" onpaste="validarPrecioPaste(event)"
+                               oninput="actualizarHintPrecio()" required>
+                        <small class="form-hint" id="precioHint">Ejemplo: $0.10 = 10 centavos | $1.00 = 1 dólar</small>
                     </div>
                     <div class="form-group">
                         <label for="productoStock">Stock *</label>
-                        <input type="text" id="productoStock" class="form-control" placeholder="0" oninput="validarStockInput(this)" required>
+                        <input type="text" id="productoStock" class="form-control" placeholder="0"
+                               onkeydown="validarStockKeydown(event)" onpaste="validarStockPaste(event)" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="productoStockMinimo">Stock Minimo (alerta)</label>
-                    <input type="text" id="productoStockMinimo" class="form-control" placeholder="5" oninput="validarStockInput(this)" value="5">
+                    <input type="text" id="productoStockMinimo" class="form-control" placeholder="5"
+                           onkeydown="validarStockKeydown(event)" onpaste="validarStockPaste(event)" value="5">
                 </div>
             </form>
         </div>

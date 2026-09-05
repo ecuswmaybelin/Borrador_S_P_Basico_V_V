@@ -74,7 +74,7 @@ function renderizarProductos(productos) {
         if (descLimpio) html += '<br><small style="color: var(--color-texto-claro);">' + descLimpio + '</small>';
         html += '</td>';
         html += '<td>' + catLimpio + '</td>';
-        html += '<td><strong>$ ' + parseFloat(p.precio).toFixed(2) + '</strong></td>';
+        html += '<td><strong>$' + parseFloat(p.precio).toFixed(2) + '</strong></td>';
         html += '<td>';
         html += '<span class="' + (esBajo ? 'text-danger' : '') + '" style="font-weight: 600;">' + p.stock + '</span>';
         if (esBajo) html += '<br><small class="text-danger">Stock bajo</small>';
@@ -224,24 +224,115 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-function validarPrecioInput(input) {
+function validarPrecioKeydown(e) {
+    var input = e.target;
     var valor = input.value;
-    valor = valor.replace(/[^0-9.]/g, '');
-    var partes = valor.split('.');
-    if (partes.length > 2) {
-        valor = partes[0] + '.' + partes.slice(1).join('');
+    var key = e.key;
+    var ctrl = e.ctrlKey || e.metaKey;
+
+    if (ctrl || key === 'Backspace' || key === 'Delete' ||
+        key === 'Tab' || key === 'Escape' || key === 'Enter' ||
+        key === 'ArrowLeft' || key === 'ArrowRight' || key === 'Home' || key === 'End') {
+        return;
     }
-    if (valor.indexOf('.') !== -1) {
-        var decimales = valor.split('.')[1];
-        if (decimales.length > 2) {
-            valor = valor.split('.')[0] + '.' + decimales.substring(0, 2);
+
+    if (key >= '0' && key <= '9') {
+        var puntoIndex = valor.indexOf('.');
+        if (puntoIndex !== -1) {
+            var decimales = valor.substring(puntoIndex + 1);
+            var cursorPos = input.selectionStart;
+            if (cursorPos > puntoIndex && decimales.length >= 2) {
+                e.preventDefault();
+                return;
+            }
         }
+        return;
     }
-    input.value = valor;
+
+    if (key === '.') {
+        if (valor.indexOf('.') !== -1) {
+            e.preventDefault();
+            return;
+        }
+        return;
+    }
+
+    e.preventDefault();
 }
 
-function validarStockInput(input) {
+function validarPrecioPaste(e) {
+    e.preventDefault();
+    var texto = (e.clipboardData || window.clipboardData).getData('text');
+    texto = texto.replace(/[^0-9.]/g, '');
+    var partes = texto.split('.');
+    if (partes.length > 2) {
+        texto = partes[0] + '.' + partes.slice(1).join('');
+    }
+    if (texto.indexOf('.') !== -1) {
+        var decimales = texto.split('.')[1];
+        if (decimales && decimales.length > 2) {
+            texto = texto.split('.')[0] + '.' + decimales.substring(0, 2);
+        }
+    }
+    var input = e.target;
+    var start = input.selectionStart;
+    var end = input.selectionEnd;
     var valor = input.value;
-    valor = valor.replace(/[^0-9]/g, '');
-    input.value = valor;
+    input.value = valor.substring(0, start) + texto + valor.substring(end);
+    input.selectionStart = input.selectionEnd = start + texto.length;
+}
+
+function validarStockKeydown(e) {
+    var key = e.key;
+    var ctrl = e.ctrlKey || e.metaKey;
+
+    if (ctrl || key === 'Backspace' || key === 'Delete' ||
+        key === 'Tab' || key === 'Escape' || key === 'Enter' ||
+        key === 'ArrowLeft' || key === 'ArrowRight' || key === 'Home' || key === 'End') {
+        return;
+    }
+
+    if (key >= '0' && key <= '9') {
+        return;
+    }
+
+    e.preventDefault();
+}
+
+function validarStockPaste(e) {
+    e.preventDefault();
+    var texto = (e.clipboardData || window.clipboardData).getData('text');
+    texto = texto.replace(/[^0-9]/g, '');
+    var input = e.target;
+    var start = input.selectionStart;
+    var end = input.selectionEnd;
+    var valor = input.value;
+    input.value = valor.substring(0, start) + texto + valor.substring(end);
+    input.selectionStart = input.selectionEnd = start + texto.length;
+}
+
+function actualizarHintPrecio() {
+    var input = document.getElementById('productoPrecio');
+    var hint = document.getElementById('precioHint');
+    if (!input || !hint) return;
+
+    var valor = input.value.trim();
+    if (!valor || isNaN(valor) || parseFloat(valor) < 0) {
+        hint.textContent = 'Ejemplo: $0.10 = 10 centavos | $1.00 = 1 dólar';
+        return;
+    }
+
+    var num = parseFloat(valor);
+    var dolares = Math.floor(num);
+    var centavos = Math.round((num - dolares) * 100);
+
+    if (num === 0) {
+        hint.textContent = '$0.00 = sin costo';
+    } else if (dolares === 0) {
+        hint.textContent = '$' + num.toFixed(2) + ' = ' + centavos + ' centavo' + (centavos !== 1 ? 's' : '');
+    } else if (centavos === 0) {
+        hint.textContent = '$' + num.toFixed(2) + ' = ' + dolares + ' dólar' + (dolares !== 1 ? 'es' : '');
+    } else {
+        hint.textContent = '$' + num.toFixed(2) + ' = ' + dolares + ' dólar' + (dolares !== 1 ? 'es' : '') + ' con ' + centavos + ' centavo' + (centavos !== 1 ? 's' : '');
+    }
 }

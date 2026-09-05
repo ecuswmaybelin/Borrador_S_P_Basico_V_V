@@ -47,7 +47,7 @@ async function buscarVentasPorFecha() {
             <tr>
                 <td>#${v.id}</td>
                 <td>${escapeHtml(v.vendedor)}</td>
-                <td><strong>$ ${parseFloat(v.total).toFixed(2)}</strong></td>
+                <td><strong>$${parseFloat(v.total).toFixed(2)}</strong></td>
                 <td>${formatDate(v.fecha_venta)}</td>
                 <td><span class="badge ${v.estado === 'completada' ? 'badge-success' : 'badge-danger'}">${v.estado}</span></td>
             </tr>
@@ -56,7 +56,7 @@ async function buscarVentasPorFecha() {
 
     // Mostrar resumen
     document.getElementById('resumenFecha').style.display = 'block';
-    document.getElementById('totalPeriodo').textContent = `$ ${data.total} (${data.cantidad} ventas)`;
+    document.getElementById('totalPeriodo').textContent = `$${data.total} (${data.cantidad} ventas)`;
 }
 
 // ==================== PRODUCTOS TOP ====================
@@ -77,7 +77,7 @@ async function cargarProductosTop() {
             <td><strong>${i + 1}</strong></td>
             <td>${escapeHtml(p.nombre)}</td>
             <td><strong>${p.total_vendidos}</strong> unidades</td>
-            <td>$ ${parseFloat(p.total_ingresos).toFixed(2)}</td>
+            <td>$${parseFloat(p.total_ingresos).toFixed(2)}</td>
         </tr>
     `).join('');
 }
@@ -88,13 +88,13 @@ async function cargarResumen() {
     const data = await fetchData('../backend/reportes/resumen_ingresos.php');
     if (!data) return;
 
-    document.getElementById('ingresosHoy').textContent = '$ ' + data.ingresosHoy;
+    document.getElementById('ingresosHoy').textContent = '$' + data.ingresosHoy;
     document.getElementById('ventasHoyCount').textContent = data.ventasHoy;
 
     const promedio = data.ventasHoy > 0
         ? (parseFloat(data.ingresosHoy) / data.ventasHoy).toFixed(2)
         : '0.00';
-    document.getElementById('promedioVenta').textContent = '$ ' + promedio;
+    document.getElementById('promedioVenta').textContent = '$' + promedio;
 }
 
 // ==================== UTILIDADES ====================

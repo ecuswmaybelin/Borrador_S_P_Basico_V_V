@@ -26,7 +26,7 @@ $nombre = trim($_POST['nombre'] ?? '');
 $descripcion = trim($_POST['descripcion'] ?? '');
 $precioRaw = $_POST['precio'] ?? '';
 $stockRaw = $_POST['stock'] ?? '';
-$stock_minimo = intval($_POST['stock_minimo'] ?? 5);
+$stock_minimoRaw = $_POST['stock_minimo'] ?? '5';
 $categoria_id = !empty($_POST['categoria_id']) ? intval($_POST['categoria_id']) : null;
 
 // Validaciones
@@ -40,6 +40,12 @@ if (!is_numeric($precioRaw) || floatval($precioRaw) < 0) {
     exit;
 }
 
+$precioParts = explode('.', $precioRaw);
+if (isset($precioParts[1]) && strlen($precioParts[1]) > 2) {
+    echo json_encode(["success" => false, "message" => "El precio no puede tener más de 2 decimales"]);
+    exit;
+}
+
 $precio = floatval($precioRaw);
 
 if (!ctype_digit($stockRaw) || intval($stockRaw) < 0) {
@@ -48,6 +54,13 @@ if (!ctype_digit($stockRaw) || intval($stockRaw) < 0) {
 }
 
 $stock = intval($stockRaw);
+
+if (!ctype_digit($stock_minimoRaw) || intval($stock_minimoRaw) < 0) {
+    echo json_encode(["success" => false, "message" => "El stock mínimo debe ser un número entero válido mayor o igual a 0"]);
+    exit;
+}
+
+$stock_minimo = intval($stock_minimoRaw);
 
 try {
     $stmt = $conexion->prepare("
