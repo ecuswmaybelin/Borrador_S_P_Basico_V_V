@@ -9,10 +9,16 @@ const loginError = document.getElementById('loginError');
 const togglePassword = document.getElementById('togglePassword');
 const passwordInput = document.getElementById('contrasena');
 
-togglePassword.addEventListener('click', function() {
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-    this.textContent = type === 'password' ? '👁' : '🙈';
+togglePassword.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        this.textContent = '🙈';
+    } else {
+        passwordInput.type = 'password';
+        this.textContent = '👁';
+    }
 });
 
 loginForm.addEventListener('submit', async function(e) {
