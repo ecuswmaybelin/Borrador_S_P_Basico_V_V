@@ -936,6 +936,30 @@ select.form-control {
     background: linear-gradient(135deg, var(--color-primario-claro) 0%, var(--color-fondo) 100%);
 }
 
+.login-academic-info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 12px 16px;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    z-index: 10;
+}
+
+.login-academic-info .academic-semester {
+    color: var(--color-primario-oscuro);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.login-academic-info .academic-subject {
+    color: var(--color-texto-claro);
+    font-size: 0.85rem;
+}
+
 .login-card {
     background-color: white;
     border-radius: var(--radius);
@@ -959,23 +983,6 @@ select.form-control {
 .login-card .login-logo p {
     color: var(--color-texto-claro);
     font-size: 0.9rem;
-}
-
-.login-academic-info {
-    text-align: center;
-    margin-bottom: 24px;
-}
-
-.login-academic-info .academic-semester {
-    color: var(--color-primario-oscuro);
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 4px;
-}
-
-.login-academic-info .academic-subject {
-    color: var(--color-texto-claro);
-    font-size: 0.85rem;
 }
 
 .password-wrapper {
@@ -1079,6 +1086,10 @@ select.form-control {
     .login-card {
         padding: 32px 24px;
         max-width: 90%;
+    }
+
+    .login-academic-info {
+        padding: 10px 12px;
     }
 
     .login-academic-info .academic-semester {
