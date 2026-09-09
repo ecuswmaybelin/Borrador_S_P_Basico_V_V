@@ -8,6 +8,11 @@
 </head>
 <body>
     <div class="login-container">
+        <div class="login-academic-info">
+            <p class="academic-semester">Sistema desarrollado en 5to semestre</p>
+            <p class="academic-subject">Materia: Verificación y Validación</p>
+        </div>
+
         <div class="login-card">
             <div class="login-logo">
                 <h1>Panaderia</h1>
@@ -22,15 +27,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="contrasena">Contrasena</label>
-                    <input type="password" id="contrasena" name="contrasena" class="form-control"
-                           placeholder="Ingresa tu contrasena" required autocomplete="current-password">
+                    <label for="contrasena">Contraseña</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="contrasena" name="contrasena" class="form-control"
+                               placeholder="Ingresa tu contraseña" required autocomplete="current-password">
+                        <button type="button" class="password-toggle" id="togglePassword" aria-label="Mostrar contraseña">👁</button>
+                    </div>
                 </div>
 
                 <div id="loginError" class="hidden" style="color: var(--color-peligro); margin-bottom: 15px; font-size: 0.9rem;"></div>
 
                 <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
-                    Iniciar Sesion
+                    Iniciar Sesión
                 </button>
             </form>
         </div>

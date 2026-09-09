@@ -930,6 +930,7 @@ select.form-control {
 .login-container {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, var(--color-primario-claro) 0%, var(--color-fondo) 100%);
@@ -938,15 +939,15 @@ select.form-control {
 .login-card {
     background-color: white;
     border-radius: var(--radius);
-    padding: 40px;
+    padding: 48px 44px;
     width: 100%;
-    max-width: 420px;
+    max-width: 480px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 
 .login-card .login-logo {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 36px;
 }
 
 .login-card .login-logo h1 {
@@ -958,6 +959,50 @@ select.form-control {
 .login-card .login-logo p {
     color: var(--color-texto-claro);
     font-size: 0.9rem;
+}
+
+.login-academic-info {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.login-academic-info .academic-semester {
+    color: var(--color-primario-oscuro);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.login-academic-info .academic-subject {
+    color: var(--color-texto-claro);
+    font-size: 0.85rem;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper .form-control {
+    padding-right: 45px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-texto-claro);
+    font-size: 1.1rem;
+    padding: 4px;
+    line-height: 1;
+    transition: var(--transition);
+}
+
+.password-toggle:hover {
+    color: var(--color-primario);
 }
 
 /* =====================================================
@@ -1029,5 +1074,18 @@ select.form-control {
 
     .productos-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .login-card {
+        padding: 32px 24px;
+        max-width: 90%;
+    }
+
+    .login-academic-info .academic-semester {
+        font-size: 0.85rem;
+    }
+
+    .login-academic-info .academic-subject {
+        font-size: 0.8rem;
     }
 }

@@ -5,6 +5,16 @@
 const loginForm = document.getElementById('loginForm');
 const loginError = document.getElementById('loginError');
 
+// Toggle password visibility
+const togglePassword = document.getElementById('togglePassword');
+const passwordInput = document.getElementById('contrasena');
+
+togglePassword.addEventListener('click', function() {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    this.textContent = type === 'password' ? '👁' : '🙈';
+});
+
 loginForm.addEventListener('submit', async function(e) {
     e.preventDefault();
 
