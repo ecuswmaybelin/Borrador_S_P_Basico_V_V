@@ -942,22 +942,13 @@ select.form-control {
     left: 0;
     width: 100%;
     text-align: center;
-    padding: 12px 16px;
-    background-color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(4px);
-    z-index: 10;
-}
-
-.login-academic-info .academic-semester {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
     color: var(--color-primario-oscuro);
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 2px;
-}
-
-.login-academic-info .academic-subject {
-    color: var(--color-texto-claro);
-    font-size: 0.85rem;
+    opacity: 0.45;
+    z-index: 10;
+    pointer-events: none;
 }
 
 .login-card {
@@ -987,6 +978,8 @@ select.form-control {
 
 .password-wrapper {
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .password-wrapper .form-control {
@@ -1092,11 +1085,7 @@ select.form-control {
         padding: 10px 12px;
     }
 
-    .login-academic-info .academic-semester {
-        font-size: 0.85rem;
-    }
-
-    .login-academic-info .academic-subject {
-        font-size: 0.8rem;
+    .login-academic-info {
+        font-size: 0.7rem;
     }
 }

@@ -9,8 +9,7 @@
 <body>
     <div class="login-container">
         <div class="login-academic-info">
-            <p class="academic-semester">Sistema desarrollado en 5to semestre</p>
-            <p class="academic-subject">Materia: Verificación y Validación</p>
+            Sistema desarrollado en 5to semestre &middot; Verificación y Validación
         </div>
 
         <div class="login-card">
