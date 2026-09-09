@@ -27,10 +27,12 @@
 
                 <div class="form-group">
                     <label for="contrasena">Contraseña</label>
-                    <div class="password-wrapper">
+                    <div class="password-wrapper" style="position:relative; width:100%;">
                         <input type="password" id="contrasena" name="contrasena" class="form-control"
-                               placeholder="Ingresa tu contraseña" required autocomplete="current-password">
-                        <button type="button" class="password-toggle" id="togglePassword" aria-label="Mostrar contraseña">👁</button>
+                               placeholder="Ingresa tu contraseña" required autocomplete="current-password"
+                               style="width:100%; box-sizing:border-box; padding-right:50px;">
+                        <button type="button" class="password-toggle" id="togglePassword" aria-label="Mostrar contraseña"
+                                style="position:absolute !important; right:12px; top:50%; transform:translateY(-50%); z-index:10; background:transparent; border:none; cursor:pointer; margin:0;">👁</button>
                     </div>
                 </div>
 
