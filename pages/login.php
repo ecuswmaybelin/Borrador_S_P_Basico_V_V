@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="../frontend/css/styles.css">
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-academic-info">
-            Sistema desarrollado en 5to semestre &middot; Verificación y Validación
-        </div>
+    <div class="login-academic-info">
+        Sistema desarrollado en 5to semestre &middot; Verificación y Validación
+    </div>
 
+    <div class="login-container">
         <div class="login-card">
             <div class="login-logo">
                 <h1>Panaderia</h1>

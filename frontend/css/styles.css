@@ -945,8 +945,8 @@ select.form-control {
     padding: 10px 16px;
     font-size: 0.8rem;
     letter-spacing: 0.3px;
-    color: var(--color-primario-oscuro);
-    opacity: 0.45;
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 0.6;
     z-index: 10;
     pointer-events: none;
 }
@@ -1083,9 +1083,6 @@ select.form-control {
 
     .login-academic-info {
         padding: 10px 12px;
-    }
-
-    .login-academic-info {
         font-size: 0.7rem;
     }
 }
