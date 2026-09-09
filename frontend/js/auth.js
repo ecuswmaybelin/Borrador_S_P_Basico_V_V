@@ -7,24 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     const loginError = document.getElementById('loginError');
 
-    // Toggle password visibility
-    const togglePassword = document.getElementById('togglePassword');
-    const passwordInput = document.getElementById('contrasena');
-
-    if (togglePassword && passwordInput) {
-        togglePassword.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                this.textContent = '🙈';
-            } else {
-                passwordInput.type = 'password';
-                this.textContent = '👁';
-            }
-        });
-    }
-
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
 

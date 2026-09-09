@@ -44,6 +44,15 @@
         </div>
     </div>
 
+    <script>
+        var btn = document.getElementById('togglePassword');
+        var inp = document.getElementById('contrasena');
+        if (btn && inp) {
+            btn.onclick = function() {
+                inp.type = inp.type === 'password' ? 'text' : 'password';
+            };
+        }
+    </script>
     <script src="../frontend/js/auth.js"></script>
 </body>
 </html>
