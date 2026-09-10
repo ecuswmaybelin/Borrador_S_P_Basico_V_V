@@ -95,13 +95,22 @@ try {
 
     $conexion->commit();
 
-    // Generar comprobante
+    // Generar comprobante desde la BD (obtiene nombres reales de productos)
+    $stmt = $conexion->prepare("
+        SELECT dv.cantidad, dv.precio_unitario, dv.subtotal, p.nombre AS producto_nombre
+        FROM detalle_venta dv
+        JOIN productos p ON dv.producto_id = p.id
+        WHERE dv.venta_id = :venta_id
+    ");
+    $stmt->execute([':venta_id' => $venta_id]);
+    $detalle = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     $comprobante = [
         'venta_id' => $venta_id,
         'total' => $total,
         'fecha' => date('d/m/Y H:i:s'),
         'vendedor' => $_SESSION['usuario_nombre'],
-        'detalle' => $productos
+        'detalle' => $detalle
     ];
 
     echo json_encode([

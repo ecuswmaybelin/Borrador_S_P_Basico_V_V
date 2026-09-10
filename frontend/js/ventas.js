@@ -71,6 +71,7 @@ async function completarVenta() {
     // Preparar datos
     const productos = carrito.map(item => ({
         id: item.id,
+        nombre: item.nombre,
         cantidad: item.cantidad,
         precio_unitario: item.precio,
         subtotal: item.precio * item.cantidad
@@ -131,7 +132,7 @@ function mostrarComprobante(ventaId, comprobante) {
         comprobante.detalle.forEach(item => {
             html += `
                 <tr style="border-bottom: 1px solid #f5f5f5;">
-                    <td style="padding: 8px 0;">${escapeHtml(item.nombre)}</td>
+                    <td style="padding: 8px 0;">${escapeHtml(item.producto_nombre)}</td>
                     <td style="text-align: center; padding: 8px 0;">${item.cantidad}</td>
                     <td style="text-align: right; padding: 8px 0;">$${parseFloat(item.precio_unitario).toFixed(2)}</td>
                     <td style="text-align: right; padding: 8px 0;">$${parseFloat(item.subtotal).toFixed(2)}</td>
