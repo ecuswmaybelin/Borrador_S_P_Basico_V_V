@@ -87,6 +87,10 @@ async function completarVenta() {
     });
 
     if (data && data.success) {
+        console.log("=== DATA COMPLETA DEL BACKEND ===");
+        console.log("data:", JSON.stringify(data, null, 2));
+        console.log("data.comprobante:", JSON.stringify(data.comprobante, null, 2));
+        console.log("data.comprobante.detalle:", JSON.stringify(data.comprobante?.detalle, null, 2));
         showToast('Venta registrada exitosamente', 'success');
 
         // Mostrar comprobante
@@ -127,6 +131,14 @@ function mostrarComprobante(ventaId, comprobante) {
             </thead>
             <tbody>
     `;
+
+    console.log("=== COMPROBANTE DEBUG ===");
+    console.log("comprobante:", JSON.stringify(comprobante, null, 2));
+    console.log("detalle:", comprobante?.detalle);
+    if (comprobante?.detalle?.length > 0) {
+        console.log("primer item keys:", Object.keys(comprobante.detalle[0]));
+        console.log("primer item:", JSON.stringify(comprobante.detalle[0], null, 2));
+    }
 
     if (comprobante && comprobante.detalle) {
         comprobante.detalle.forEach(item => {
